@@ -39,8 +39,46 @@ Resources:
             Name: 'Greeting API'
             Description: 'API used for Greeting requests'
             FailOnWarnings: true
-    
+    GreetingLambdaDevPermission:
+        Type: 'AWS::Lambda::Permission'
+        Properties:
+            Action: 'lambda:invokeFunction'
+            FunctionName: {Ref: GreetingLambdaDevAlias}
+            Principal: apigateway.amazonaws.com
+            SourceArn: {'Fn::Join': ["", ['arn:aws:execute-api:', {Ref: 'AWS::Region'}, ':', {Ref: 'AWS::AccountId'}, ':', {Ref: GreetingApi}, '/*']]}
+    GreetingLambdaStagePermission:
+        Type: 'AWS::Lambda::Permission'
+        Properties:
+            Action: 'lambda:invokeFunction'
+            FunctionName: {Ref: GreetingLambdaStageAlias}
+            Principal: apigateway.amazonaws.com
+            SourceArn: {'Fn::Join': ["", ['arn:aws:execute-api:', {Ref: 'AWS::Region'}, ':', {Ref: 'AWS::AccountId'}, ':', {Ref: GreetingApi}, '/*']]}
+    GreetingLambdaProdPermission:
+        Type: 'AWS::Lambda::Permission'
+        Properties:
+            Action: 'lambda:invokeFunction'
+            FunctionName: {Ref: GreetingLambdaProdAlias}
+            Principal: apigateway.amazonaws.com
+            SourceArn: {'Fn::Join': ["", ['arn:aws:execute-api:', {Ref: 'AWS::Region'}, ':', {Ref: 'AWS::AccountId'}, ':', {Ref: GreetingApi}, '/*']]}
+    LambdaPermission:
+        Type: 'AWS::Lambda::Permission'
+        Properties:
+            Action: 'lambda:invokeFunction'
+            FunctionName: {'Fn::GetAtt': [GreetingLambda, Arn]}
+            Principal: apigateway.amazonaws.com
+            SourceArn: {'Fn::Join': ["", ['arn:aws:execute-api:', {Ref: 'AWS::Region'}, ':', {Ref: 'AWS::AccountId'}, ':', {Ref: GreetingApi}, '/*']]}
+    ApiGatewayCloudWatchLogsRole:
+        Type: 'AWS::IAM::Role'
+        Properties:
+            AssumeRolePolicyDocument: {Version: '2012-10-17', Statement: [{Effect: Allow, Principal: {Service: [apigateway.amazonaws.com]}, Action: ['sts:AssumeRole']}]}
+            Policies: [{PolicyName: ApiGatewayLogsPolicy, PolicyDocument: {Version: '2012-10-17', Statement: [{Effect: Allow, Action: ['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:DescribeLogGroups', 'logs:DescribeLogStreams', 'logs:PutLogEvents', 'logs:GetLogEvents', 'logs:FilterLogEvents'], Resource: '*'}]}}]
+    ApiGatewayAccount:
+        Type: 'AWS::ApiGateway::Account'
+        Properties:
+            CloudWatchRoleArn: {'Fn::GetAtt': [ApiGatewayCloudWatchLogsRole, Arn]}
     GreetingApiDevStage:
+        DependsOn:
+            - ApiGatewayAccount
         Type: 'AWS::ApiGateway::Stage'
         Properties:
             DeploymentId: {Ref: ApiDeployment}
@@ -49,6 +87,8 @@ Resources:
             StageName: dev
             Variables: {LambdaAlias: DEV}
     GreetingApiStageStage:
+        DependsOn:
+            - ApiGatewayAccount
         Type: 'AWS::ApiGateway::Stage'
         Properties:
             DeploymentId: {Ref: ApiDeployment}
@@ -57,6 +97,8 @@ Resources:
             StageName: stage
             Variables: {LambdaAlias: STAGE}
     GreetingApiProdStage:
+        DependsOn:
+            - ApiGatewayAccount
         Type: 'AWS::ApiGateway::Stage'
         Properties:
             DeploymentId: {Ref: ApiDeployment}
@@ -78,6 +120,7 @@ Resources:
             ParentId: {'Fn::GetAtt': [GreetingApi, RootResourceId]}
             PathPart: greeting
     GreetingRequest:
+        DependsOn: LambdaPermission
         Type: 'AWS::ApiGateway::Method'
         Properties:
             AuthorizationType: NONE
