@@ -35,13 +35,8 @@ Resources:
             Description: 'API used for Greeting requests'
             FailOnWarnings: true
       
-    ApiGatewayAccount:
-        Type: 'AWS::ApiGateway::Account'
-        Properties:
-            CloudWatchRoleArn: {'Fn::GetAtt': [ApiGatewayCloudWatchLogsRole, Arn]}
+    
     GreetingApiDevStage:
-        DependsOn:
-            - ApiGatewayAccount
         Type: 'AWS::ApiGateway::Stage'
         Properties:
             DeploymentId: {Ref: ApiDeployment}
@@ -50,8 +45,6 @@ Resources:
             StageName: dev
             Variables: {LambdaAlias: DEV}
     GreetingApiStageStage:
-        DependsOn:
-            - ApiGatewayAccount
         Type: 'AWS::ApiGateway::Stage'
         Properties:
             DeploymentId: {Ref: ApiDeployment}
@@ -60,8 +53,6 @@ Resources:
             StageName: stage
             Variables: {LambdaAlias: STAGE}
     GreetingApiProdStage:
-        DependsOn:
-            - ApiGatewayAccount
         Type: 'AWS::ApiGateway::Stage'
         Properties:
             DeploymentId: {Ref: ApiDeployment}
