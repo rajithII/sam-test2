@@ -78,7 +78,6 @@ Resources:
             ParentId: {'Fn::GetAtt': [GreetingApi, RootResourceId]}
             PathPart: greeting
     GreetingRequest:
-        DependsOn: LambdaPermission
         Type: 'AWS::ApiGateway::Method'
         Properties:
             AuthorizationType: NONE
