@@ -9,12 +9,8 @@ phases:
       - ./awscli-bundle/install -h
   build:
      commands: 
-      - mkdir test
-      - cp index.js test/
-      - cd test
       - tar -zcf test1.zip index.js
-      - aws s3 sync test1.zip s3://aadhri-test-buck/
-      - cd ..
+      - aws s3 sync test1.zip s3://aadhri-test-buck
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
                                    --output-template-file outputdata.yaml   
 artifacts:
