@@ -2,6 +2,8 @@ version: 0.1
 phases:
   install:
     commands:
+      - zip -r test1.zip ./Lambda/index.js
+      - aws s3 sync test1.zip s3://aadhri-test-buck/
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
                                    --output-template-file outputdata.yaml   
 artifacts:
