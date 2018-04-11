@@ -12,7 +12,8 @@ phases:
       - cp -R Lambda/index.js test/
       - cd test
       - ls -l 
-      - zip -r test1.zip index.js
+      - zip -r test1.zip .
+      - ls -l
       - aws s3 sync ./test/test1.zip s3://aadhri-test-buck/
       - cd ..
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
