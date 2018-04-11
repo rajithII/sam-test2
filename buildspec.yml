@@ -2,6 +2,7 @@ version: 0.1
 phases:
   install:
     commands:
+      - apt-get update -y
       - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
       - unzip awscli-bundle.zip
       - sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
@@ -9,9 +10,11 @@ phases:
   build:
      commands: 
       - mkdir test
-      - cp -R index.js ./test/
-      - zip -r test1.zip ./test/.
+      - cp -R index.js test/
+      - cd test
+      - zip -r test1.zip .
       - aws s3 sync test1.zip s3://aadhri-test-buck/
+      - cd ..
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
                                    --output-template-file outputdata.yaml   
 artifacts:
