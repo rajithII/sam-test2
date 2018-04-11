@@ -6,8 +6,8 @@ phases:
       - unzip awscli-bundle.zip
       - sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - ./awscli-bundle/install -h
-  phases:
-    build:
+  build:
+     commands: 
       - mkdir test
       - cp -R Lambda/index.js test/
       - cd test
