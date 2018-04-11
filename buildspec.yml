@@ -9,13 +9,9 @@ phases:
   build:
      commands: 
       - mkdir test
-      - cp -R Lambda/index.js test/
-      - cd test
-      - ls -l 
-      - zip -r test1.zip .
-      - ls -l
-      - aws s3 sync ./test/test1.zip s3://aadhri-test-buck/
-      - cd ..
+      - cp -R index.js ./test/
+      - zip -r test1.zip ./test/.
+      - aws s3 sync test1.zip s3://aadhri-test-buck/
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
                                    --output-template-file outputdata.yaml   
 artifacts:
