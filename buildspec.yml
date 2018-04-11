@@ -6,7 +6,8 @@ phases:
       - unzip awscli-bundle.zip
       - sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - ./awscli-bundle/install -h
-      - zip -r ./Lambda/test1.zip ./Lambda/index.js
+      - mkdir test
+      - zip -r ./test/test1.zip ./Lambda/index.js
       - aws s3 sync ./Lambda/test1.zip s3://aadhri-test-buck/
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
                                    --output-template-file outputdata.yaml   
