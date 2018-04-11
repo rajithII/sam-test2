@@ -3,6 +3,8 @@ phases:
   install:
     commands:
       - cd lambda
+      - pwd
+      - ls
       - zip -r test.zip .
       - aws s3 sync test.zip s3://aadhri-test-buck/
       - cd ..
