@@ -8,7 +8,9 @@ phases:
       - ./awscli-bundle/install -h
       - mkdir test
       - cp -R Lambda/index.js test/
-      - zip -r ./test/test1.zip ./Lambda/index.js
+      - cd test
+      - zip -r test1.zip .
+      - cd ..
       - aws s3 sync ./test/test1.zip s3://aadhri-test-buck/
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
                                    --output-template-file outputdata.yaml   
