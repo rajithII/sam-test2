@@ -12,7 +12,7 @@ phases:
       - mkdir test
       - cp index.js test/
       - cd test
-      - zip -r test1.zip .
+      - zip test1.zip index.js
       - aws s3 sync test1.zip s3://aadhri-test-buck/
       - cd ..
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
