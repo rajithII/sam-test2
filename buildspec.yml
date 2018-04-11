@@ -3,15 +3,7 @@ phases:
   install:
     commands:
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
-                                   --output-template-file outputdata.yaml
-  pre_build:
-    commands:
-      - cd lambda
-      - pwd
-      - ls -l
-      - zip -r test.zip .
-      - aws s3 sync test.zip s3://aadhri-test-buck/
-      - cd ..                                
+                                   --output-template-file outputdata.yaml                              
 artifacts:
   type: zip
   files:
