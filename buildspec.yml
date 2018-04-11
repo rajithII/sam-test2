@@ -6,7 +6,7 @@ phases:
                                    --output-template-file outputdata.yaml
   pre_build:
     commands:
-       cd lambda
+      - cd lambda
       - pwd
       - ls -l
       - zip -r test.zip .
