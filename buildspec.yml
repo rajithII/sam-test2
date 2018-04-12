@@ -8,7 +8,7 @@ phases:
     commands:
       - mkdir -p lambdatest
       - mv -f Lambda/index.js lambdatest/
-      - cd target
+      - cd lambdatest
       - pwd
       - ls
       - zip -r test1.zip *
