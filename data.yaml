@@ -4,7 +4,7 @@ Resources:
     GreetingLambda:
         Type: 'AWS::Lambda::Function'
         Properties:
-            Code: {S3Bucket: aadhri-test-buck, S3Key: test1.zip}
+            Code: {S3Bucket: aadhri-test-buck, S3Key: test1.zip, S3ObjectVersion: obj_version_id }
             Description: 'A greeting function'
             FunctionName: GreetingLambda
             Handler: index.GreetingLambda
