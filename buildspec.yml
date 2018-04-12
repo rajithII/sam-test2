@@ -4,7 +4,7 @@ phases:
     commands:
       - mkdir -p lambdatest
       - mv -f Lambda/index.js lambdatest/
-      - zip -r lambdatest/test1.zip *
+      - zip -r lambdatest/test1.zip lambdatest/*
       - aws s3 cp lambdatest/test1.zip s3://aadhri-test-buck/
       - ./check-s3-object-version.sh
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
