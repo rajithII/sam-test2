@@ -12,7 +12,7 @@ else
 	   sed -i -e 's/obj_version_id/'"$version_id"'/' data.yaml  
 fi
 
-functionversion=$(aws lambda get-alias --function-name GreetingLambda --name PROD --profile aadhri | grep "FunctionVersion" | awk '{print $2}' | tr -d '",')
+functionversion=$(aws lambda get-alias --function-name GreetingLambda --name PROD | grep "FunctionVersion" | awk '{print $2}' | tr -d '",')
 
 if [ $? != 0 ]; then
 	echo "No version found"
