@@ -4,6 +4,17 @@ phases:
     commands:
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
                                    --output-template-file outputdata.yaml   
+  build:
+    commands:
+      - mkdir -p lambdatest
+      - mv -f Lambda/index.js lambdatest/
+      - cd target
+      - pwd
+      - ls
+      - zip -r test1.zip *
+      - ls
+      - aws s3 sync test1.zip s3://aadhri-test-buck
+      - cd ..
 artifacts:
   type: zip
   files:
