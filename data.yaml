@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'AWS CloudFormation template that contains a Lambda function behind an API Gateway that has three stages mapped to three Lambda alias'
+Description: 'AWS CloudFormation template that contains a Lambda function behind an API Gateway that has three Stages mapped to three Lambda alias'
 Resources:
    GreetingLambda:
       Type: 'AWS::Lambda::Function'
