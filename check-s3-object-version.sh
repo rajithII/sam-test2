@@ -5,7 +5,7 @@
 #version         :0.1    
 #usage		 :This script will retrieve the version id of latest lambda zip file from s3 bucket.
 #====================================================================================================
-version_id=$(aws s3api get-object --bucket aadhri-test-buck --key test2.zip outfile | grep "VersionId" | awk '{ print $2 }'| tr -d '",')
+version_id=$(aws s3api get-object --bucket aadhri-test-buck --key $1 outfile | grep "VersionId" | awk '{ print $2 }'| tr -d '",')
 if [ $? != 0 ]; then
 	   echo "Version does not exist"
 else
