@@ -6,7 +6,7 @@ Resources:
       Properties:
          Code:
             S3Bucket: aadhri-test-buck
-            S3Key: test.zip
+            S3Key: test1.zip
             S3ObjectVersion: obj_version_id
          Description: 'A greeting function'
          FunctionName: GreetingLambda
