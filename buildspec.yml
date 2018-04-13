@@ -9,8 +9,8 @@ phases:
       - mv -f Lambda/* lambdatest/
       - cd lambdatest
       - npm install
-      - zip -r test1.zip *
-      - aws s3 cp test1.zip s3://aadhri-test-buck/
+      - zip -r test2.zip *
+      - aws s3 cp test2.zip s3://aadhri-test-buck/
       - cd ..
       - chmod 755 check-s3-object-version.sh
       - ./check-s3-object-version.sh
