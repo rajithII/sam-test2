@@ -5,17 +5,17 @@ Resources:
       Type: 'AWS::Lambda::Function'
       Properties:
          Code:
-            S3Bucket: s3-bucket-name
+            S3Bucket: bucket-name
             S3Key: object-name
             S3ObjectVersion: obj-version-id
-         Description: 'A greeting function'
-         FunctionName: GreetingLambda
-         Handler: index.GreetingLambda
+         Description: 'function-description'
+         FunctionName: lambda-function-name
+         Handler: index.lambda-function-name
          Role:
             'Fn::GetAtt':
                - LambdaExecutionRole
                - Arn
-         Runtime: nodejs4.3
+         Runtime: runtime-env
    
    
    LambdaDevAlias:

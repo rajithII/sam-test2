@@ -5,17 +5,16 @@ phases:
       - sudo apt-get update -y
       - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
       - sudo apt-get install -y nodejs
-      - bucket-name=aadhri-test-buck
-      - lambda-zip=test2.zip  
+      - source lambda-variables  
       - mkdir -p lambdatest
       - mv -f Lambda/* lambdatest/
       - cd lambdatest
       - npm install
-      - zip -r $lambda-zip *
-      - aws s3 cp $lambda-zip s3://$bucket-name/
+      - zip -r $lambda_zip *
+      - aws s3 cp $lambda_zip s3://$bucket_name/
       - cd ..
       - chmod 755 check-s3-object-version.sh
-      - ./check-s3-object-version.sh $lambda-zip
+      - ./check-s3-object-version.sh 
       - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
                                    --output-template-file outputdata.yaml   
   build:

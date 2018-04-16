@@ -1,8 +1,7 @@
 #This file contains all the lambda variables
 
-
-function-name=GreetingLambda
-function-description="A greeting lambda"
-runtime-env=node4.3
-s3-bucket-name=aadhri-test-buck
-
+function_name=GreetingLambda
+function_description="A greeting lambda"
+runtime_env=node4.3
+s3_bucket_name=aadhri-test-buck
+lambda_zip=test2.zip
