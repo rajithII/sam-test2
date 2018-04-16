@@ -11,7 +11,7 @@ curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 #Exporting file contains lambda variables which are used in the cloudformation template
-source lambda-variables
+source lambda-variables.txt
 
 #Packaging the zip file and upload it to s3
 mkdir -p lambdatest
