@@ -7,23 +7,23 @@
 #====================================================================================================
 
 #Substitute the value of S3Key with the zip file which is uploaded to s3. 
-sed -i -e 's/object_name/'"$1"'/g' data.yaml
+sed -i -e 's/object-name/'"$1"'/g' data.yaml
 sed -i -e 's/s3-bucket-name/'"$2"'/g' data.yaml
 
 #Substitute the value of S3ObjectVersion with the current version id of zip file which is uploaded to s3 bucket.
-version_id=$(aws s3api get-object --bucket aadhri-test-buck --key $1 outfile | grep "VersionId" | awk '{ print $2 }'| tr -d '",')
+version-id=$(aws s3api get-object --bucket aadhri-test-buck --key $1 outfile | grep "VersionId" | awk '{ print $2 }'| tr -d '",')
 if [ $? != 0 ]; then
 	   echo "Version does not exist"
 else
-	   sed -i -e 's/obj_version_id/'"$version_id"'/' data.yaml  
+	   sed -i -e 's/obj-version-id/'"$version-id"'/' data.yaml  
 fi
 
 #Pointing prod alias with the current version of lambda function. This step is necessary to keep the production always points to the current version of lambda during the update stack process. 
-functionversion=$(aws lambda get-alias --function-name GreetingLambda --name PROD | grep "FunctionVersion" | awk '{print $2}' | tr -d '",')
+lambda-version=$(aws lambda get-alias --function-name GreetingLambda --name PROD | grep "FunctionVersion" | awk '{print $2}' | tr -d '",')
 
 if [ $? != 0 ]; then
 	echo "No version found"
 else
-	sed ':a;N;$!ba;s/\$LATEST/'"$functionversion"'/3' data.yaml
+	sed ':a;N;$!ba;s/\$LATEST/'"$lambda-version"'/3' data.yaml
 fi
 
