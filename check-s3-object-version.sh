@@ -8,6 +8,7 @@
 
 #Substitute the value of S3Key with the zip file which is uploaded to s3. 
 sed -i -e 's/object_name/'"$1"'/g' data.yaml
+sed -i -e 's/s3-bucket-name/'"$2"'/g' data.yaml
 
 #Substitute the value of S3ObjectVersion with the current version id of zip file which is uploaded to s3 bucket.
 version_id=$(aws s3api get-object --bucket aadhri-test-buck --key $1 outfile | grep "VersionId" | awk '{ print $2 }'| tr -d '",')
