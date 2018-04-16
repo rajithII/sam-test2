@@ -21,6 +21,7 @@ npm install
 zip -r $lambda_zip *
 aws s3 cp $lambda_zip s3://$s3_bucket_name/
 cd ..
+current_lambda_version="\$LATEST"
 
 #Replace the template values to the original values in data.yaml
 sed -i -e 's/object-name/'"$lambda_zip"'/g' data.yaml
@@ -30,7 +31,7 @@ sed -i -e 's/function-description/'"$function_description"'/g' data.yaml
 sed -i -e 's/runtime-env/'"$runtime_env"'/g' data.yaml
 
 #Substitute the value of S3ObjectVersion with the current version id of zip file which is uploaded to s3 bucket.
-version_id=$(aws s3api get-object --bucket aadhri-test-buck --key $1 outfile | grep "VersionId" | awk '{ print $2 }'| tr -d '",')
+version_id=$(aws s3api get-object --bucket aadhri-test-buck --key $lambda_zip outfile | grep "VersionId" | awk '{ print $2 }'| tr -d '",')
 if [ $? != 0 ]; then
 	   echo "Version does not exist"
 else
@@ -38,10 +39,10 @@ else
 fi
 
 #Pointing prod alias with the current version of lambda function. This step is necessary to keep the production always points to the current version of lambda during the update stack process. 
-lambda_version=$(aws lambda get-alias --function-name GreetingLambda --name PROD | grep "FunctionVersion" | awk '{print $2}' | tr -d '",')
+lambda_version=$(aws lambda get-alias --function-name $function_name --name PROD | grep "FunctionVersion" | awk '{print $2}' | tr -d '",')
 
 if [ $? != 0 ]; then
-	echo "No version found"
+	sed 's/$LATEST/'"$current_lambda_version"'/g' data.yaml
 else
 	sed ':a;N;$!ba;s/\$LATEST/'"$lambda_version"'/3' data.yaml
 fi
