@@ -9,7 +9,7 @@
 #Substitute the value of S3Key with the zip file which is uploaded to s3. 
 
 #Exporting file contains lambda variables which are used in the cloudformation template
-source lambda-variables
+source lambda-variables.txt
 
 sed -i -e 's/object-name/'"$lambda_zip"'/g' data.yaml
 sed -i -e 's/bucket-name/'"$s3_bucket_name"'/g' data.yaml
