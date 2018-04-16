@@ -1,5 +1,5 @@
 #This file contains all the lambda variables
-
+============================================
 function_name=GreetingLambda
 function_description="A greeting lambda"
 runtime_env=nodejs4.3
