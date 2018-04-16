@@ -5,13 +5,14 @@ phases:
       - sudo apt-get update -y
       - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
       - sudo apt-get install -y nodejs
+      - bucket_name=aadhri-test-buck
       - lambda_zip=test2.zip  
       - mkdir -p lambdatest
       - mv -f Lambda/* lambdatest/
       - cd lambdatest
       - npm install
       - zip -r $lambda_zip *
-      - aws s3 cp $lambda_zip s3://aadhri-test-buck/
+      - aws s3 cp $lambda_zip s3://$bucket_name/
       - cd ..
       - chmod 755 check-s3-object-version.sh
       - ./check-s3-object-version.sh $lambda_zip
