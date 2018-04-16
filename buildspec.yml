@@ -2,21 +2,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - sudo apt-get update -y
-      - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-      - sudo apt-get install -y nodejs
-      - source lambda-variables  
-      - mkdir -p lambdatest
-      - mv -f Lambda/* lambdatest/
-      - cd lambdatest
-      - npm install
-      - zip -r $lambda_zip *
-      - aws s3 cp $lambda_zip s3://$bucket_name/
-      - cd ..
       - chmod 755 check-s3-object-version.sh
-      - ./check-s3-object-version.sh 
-      - aws cloudformation package --template-file data.yaml --s3-bucket aadhri-test-buck
-                                   --output-template-file outputdata.yaml   
+      - ./check-s3-object-version.sh    
   build:
     commands:
 artifacts:

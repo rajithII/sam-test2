@@ -6,11 +6,23 @@
 #Usage		     :This script will retrieve the version id of latest lambda zip file from s3 bucket.
 #====================================================================================================
 
-#Substitute the value of S3Key with the zip file which is uploaded to s3. 
+sudo apt-get update -y
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
 #Exporting file contains lambda variables which are used in the cloudformation template
 source lambda-variables
 
+#Packaging the zip file and upload it to s3
+mkdir -p lambdatest
+mv -f Lambda/* lambdatest/
+cd lambdatest
+npm install
+zip -r $lambda_zip *
+aws s3 cp $lambda_zip s3://$s3_bucket_name/
+cd ..
+
+#Replace the template values to the original values in data.yaml
 sed -i -e 's/object-name/'"$lambda_zip"'/g' data.yaml
 sed -i -e 's/bucket-name/'"$s3_bucket_name"'/g' data.yaml
 sed -i -e 's/lambda-function-name/'"$function_name"'/g' data.yaml
@@ -34,3 +46,5 @@ else
 	sed ':a;N;$!ba;s/\$LATEST/'"$lambda_version"'/3' data.yaml
 fi
 
+#Packaging the cloudformation template
+aws cloudformation package --template-file data.yaml --s3-bucket $s3_bucket_name --output-template-file outputdata.yaml
