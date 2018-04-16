@@ -18,7 +18,7 @@ Resources:
          Runtime: nodejs4.3
    
    
-   GreetingLambdaDevAlias:
+   LambdaDevAlias:
       Type: 'AWS::Lambda::Alias'
       Properties:
          FunctionName:
@@ -27,7 +27,7 @@ Resources:
          Name: DEV
    
    
-   GreetingLambdaStageAlias:
+   LambdaStageAlias:
       Type: 'AWS::Lambda::Alias'
       Properties:
          FunctionName:
@@ -36,7 +36,7 @@ Resources:
          Name: STAGE
    
    
-   GreetingLambdaProdAlias:
+   LambdaProdAlias:
       Type: 'AWS::Lambda::Alias'
       Properties:
          FunctionName:
@@ -75,7 +75,7 @@ Resources:
       Properties:
          Action: 'lambda:invokeFunction'
          FunctionName:
-            Ref: GreetingLambdaDevAlias
+            Ref: LambdaDevAlias
          Principal: apigateway.amazonaws.com
          SourceArn:
             'Fn::Join':
@@ -98,7 +98,7 @@ Resources:
       Properties:
          Action: 'lambda:invokeFunction'
          FunctionName:
-            Ref: GreetingLambdaStageAlias
+            Ref: LambdaStageAlias
          Principal: apigateway.amazonaws.com
          SourceArn:
             'Fn::Join':
@@ -121,7 +121,7 @@ Resources:
       Properties:
          Action: 'lambda:invokeFunction'
          FunctionName:
-            Ref: GreetingLambdaProdAlias
+            Ref: LambdaProdAlias
          Principal: apigateway.amazonaws.com
          SourceArn:
             'Fn::Join':
