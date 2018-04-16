@@ -41,7 +41,7 @@ fi
 lambda_version=$(aws lambda get-alias --function-name GreetingLambda --name PROD | grep "FunctionVersion" | awk '{print $2}' | tr -d '",')
 
 if [ $? != 0 ]; then
-	echo "No version found"source <filename>
+	echo "No version found"
 else
 	sed ':a;N;$!ba;s/\$LATEST/'"$lambda_version"'/3' data.yaml
 fi
