@@ -2,6 +2,6 @@
 
 function_name=GreetingLambda
 function_description="A greeting lambda"
-runtime_env=node4.3
+runtime_env=nodejs4.3
 s3_bucket_name=aadhri-test-buck
 lambda_zip=test2.zip
