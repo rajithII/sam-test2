@@ -9,5 +9,5 @@ phases:
 artifacts:
   type: zip
   files:
-    - data.yaml
-    - outputdata.yaml
+    - inputTemplate.yaml
+    - outputTemplate.yaml
