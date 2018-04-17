@@ -2,8 +2,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - chmod 755 check-s3-object-version.sh
-      - ./check-s3-object-version.sh    
+      - chmod 755 deploy.sh
+      - ./deploy.sh    
   build:
     commands:
 artifacts:
