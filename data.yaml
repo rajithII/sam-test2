@@ -1,28 +1,28 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'AWS CloudFormation template that contains a Lambda function behind an API Gateway that has three Stages mapped to three Lambda alias'
 Resources:
-   lambda-function-name:
+   Lambda-function-name:
       Type: 'AWS::Lambda::Function'
       Properties:
          Code:
-            S3Bucket: bucket-name
-            S3Key: object-name
-            S3ObjectVersion: obj-version-id
-         Description: 'function-description'
-         FunctionName: lambda-function-name
-         Handler: index.lambda-function-name
+            S3Bucket: Bucket-name
+            S3Key: Object-name
+            S3ObjectVersion: Obj-version-id
+         Description: 'Function-description'
+         FunctionName: Lambda-function-name
+         Handler: index.Lambda-function-name
          Role:
             'Fn::GetAtt':
                - LambdaExecutionRole
                - Arn
-         Runtime: runtime-env
+         Runtime: Runtime-env
    
    
    LambdaDevAlias:
       Type: 'AWS::Lambda::Alias'
       Properties:
          FunctionName:
-            Ref: lambda-function-name
+            Ref: Lambda-function-name
          FunctionVersion: $LATEST
          Name: DEV
    
@@ -31,7 +31,7 @@ Resources:
       Type: 'AWS::Lambda::Alias'
       Properties:
          FunctionName:
-            Ref: lambda-function-name
+            Ref: Lambda-function-name
          FunctionVersion: $LATEST
          Name: STAGE
    
@@ -40,7 +40,7 @@ Resources:
       Type: 'AWS::Lambda::Alias'
       Properties:
          FunctionName:
-            Ref: lambda-function-name
+            Ref: Lambda-function-name
          FunctionVersion: $LATEST
          Name: PROD
    
@@ -70,7 +70,7 @@ Resources:
          FailOnWarnings: true
    
    
-   lambda-function-nameDevPermission:
+   Lambda-function-nameDevPermission:
       Type: 'AWS::Lambda::Permission'
       Properties:
          Action: 'lambda:invokeFunction'
@@ -93,7 +93,7 @@ Resources:
                   - '/*'
    
    
-   lambda-function-nameStagePermission:
+   Lambda-function-nameStagePermission:
       Type: 'AWS::Lambda::Permission'
       Properties:
          Action: 'lambda:invokeFunction'
@@ -116,7 +116,7 @@ Resources:
                   - '/*'
    
    
-   lambda-function-nameProdPermission:
+   Lambda-function-nameProdPermission:
       Type: 'AWS::Lambda::Permission'
       Properties:
          Action: 'lambda:invokeFunction'
@@ -145,7 +145,7 @@ Resources:
          Action: 'lambda:invokeFunction'
          FunctionName:
             'Fn::GetAtt':
-               - lambda-function-name
+               - Lambda-function-name
                - Arn
          Principal: apigateway.amazonaws.com
          SourceArn:
@@ -305,7 +305,7 @@ Resources:
                      - ':lambda:path/2015-03-31/functions/'
                      -
                         'Fn::GetAtt':
-                           - lambda-function-name
+                           - Lambda-function-name
                            - Arn
                      - ':${stageVariables.LambdaAlias}'
                      - /invocations
