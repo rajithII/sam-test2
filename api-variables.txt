@@ -1,0 +1,5 @@
+#This file contains all the API variables
+=========================================
+API_Name=GreetingApi
+API_Description="API used for Greeting requests"
+Path_Part="greeting"

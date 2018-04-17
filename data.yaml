@@ -62,11 +62,11 @@ Resources:
             - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
    
    
-   GreetingApi:
+   APIName:
       Type: 'AWS::ApiGateway::RestApi'
       Properties:
-         Name: 'Greeting API'
-         Description: 'API used for Greeting requests'
+         Name: 'APIName'
+         Description: 'API-Description'
          FailOnWarnings: true
    
    
@@ -89,7 +89,7 @@ Resources:
                      Ref: 'AWS::AccountId'
                   - ':'
                   -
-                     Ref: GreetingApi
+                     Ref: APIName
                   - '/*'
    
    
@@ -112,7 +112,7 @@ Resources:
                      Ref: 'AWS::AccountId'
                   - ':'
                   -
-                     Ref: GreetingApi
+                     Ref: APIName
                   - '/*'
    
    
@@ -135,7 +135,7 @@ Resources:
                      Ref: 'AWS::AccountId'
                   - ':'
                   -
-                     Ref: GreetingApi
+                     Ref: APIName
                   - '/*'
    
    
@@ -160,7 +160,7 @@ Resources:
                      Ref: 'AWS::AccountId'
                   - ':'
                   -
-                     Ref: GreetingApi
+                     Ref: APIName
                   - '/*'
    
    
@@ -205,7 +205,7 @@ Resources:
                - Arn
    
    
-   GreetingApiDevStage:
+   APINameDevStage:
       DependsOn:
          - ApiGatewayAccount
       Type: 'AWS::ApiGateway::Stage'
@@ -219,13 +219,13 @@ Resources:
                LoggingLevel: INFO
                ResourcePath: '/*'
          RestApiId:
-            Ref: GreetingApi
+            Ref: APIName
          StageName: dev
          Variables:
             LambdaAlias: DEV
    
    
-   GreetingApiStageStage:
+   APINameStageStage:
       DependsOn:
          - ApiGatewayAccount
       Type: 'AWS::ApiGateway::Stage'
@@ -239,13 +239,13 @@ Resources:
                LoggingLevel: INFO
                ResourcePath: '/*'
          RestApiId:
-            Ref: GreetingApi
+            Ref: APIName
          StageName: stage
          Variables:
             LambdaAlias: STAGE
    
    
-   GreetingApiProdStage:
+   APINameProdStage:
       DependsOn:
          - ApiGatewayAccount
       Type: 'AWS::ApiGateway::Stage'
@@ -259,7 +259,7 @@ Resources:
                LoggingLevel: INFO
                ResourcePath: '/*'
          RestApiId:
-            Ref: GreetingApi
+            Ref: APIName
          StageName: prod
          Variables:
             LambdaAlias: PROD
@@ -268,25 +268,25 @@ Resources:
    ApiDeployment:
       Type: 'AWS::ApiGateway::Deployment'
       DependsOn:
-         - GreetingRequest
+         - APINameRequest
       Properties:
          RestApiId:
-            Ref: GreetingApi
+            Ref: APIName
    
    
-   GreetingResource:
+   APINameResource:
       Type: 'AWS::ApiGateway::Resource'
       Properties:
          RestApiId:
-            Ref: GreetingApi
+            Ref: APIName
          ParentId:
             'Fn::GetAtt':
-               - GreetingApi
+               - APIName
                - RootResourceId
-         PathPart: greeting
+         PathPart: Path-Part
    
    
-   GreetingRequest:
+   APINameRequest:
       DependsOn: LambdaPermission
       Type: 'AWS::ApiGateway::Method'
       Properties:
@@ -323,9 +323,9 @@ Resources:
          RequestParameters:
             method.request.querystring.name: false
          ResourceId:
-            Ref: GreetingResource
+            Ref: APINameResource
          RestApiId:
-            Ref: GreetingApi
+            Ref: APIName
          MethodResponses:
             -
                StatusCode: 200
@@ -340,7 +340,7 @@ Outputs:
             -
                - 'https://'
                -
-                  Ref: GreetingApi
+                  Ref: APIName
                - .execute-api.
                -
                   Ref: 'AWS::Region'

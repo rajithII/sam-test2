@@ -12,6 +12,7 @@ sudo apt-get install -y nodejs
 
 #Exporting file contains lambda variables which are used in the cloudformation template
 source lambda-variables.txt
+source api-variables.txt
 
 #Packaging the zip file and upload it to s3
 mkdir -p lambdatest
@@ -23,12 +24,17 @@ aws s3 cp $lambda_zip s3://$s3_bucket_name/
 cd ..
 current_lambda_version="\$LATEST"
 
-#Replace the template values to the original values in data.yaml
+#Replace the Lambda template values to the original values in data.yaml
 sed -i -e 's/object-name/'"$lambda_zip"'/g' data.yaml
 sed -i -e 's/bucket-name/'"$s3_bucket_name"'/g' data.yaml
 sed -i -e 's/lambda-function-name/'"$function_name"'/g' data.yaml
 sed -i -e 's/function-description/'"$function_description"'/g' data.yaml
 sed -i -e 's/runtime-env/'"$runtime_env"'/g' data.yaml
+
+#Replace the API template values to the original values in data.yaml
+sed -i -e 's/APIName/'"$API_Name"'/g' data.yaml
+sed -i -e 's/API-Description/'"$API_Description"'/g' data.yaml
+sed -i -e 's/Path-Part/'"$Path_Part"'/g' data.yaml
 
 #Substitute the value of S3ObjectVersion with the current version id of zip file which is uploaded to s3 bucket.
 version_id=$(aws s3api get-object --bucket aadhri-test-buck --key $lambda_zip outfile | grep "VersionId" | awk '{ print $2 }'| tr -d '",')
