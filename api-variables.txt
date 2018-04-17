@@ -1,5 +1,5 @@
 #This file contains all the API variables
 =========================================
-API_Name=GreetingApi
-API_Description="API used for Greeting requests"
-Path_Part="greeting"
+API_Name=TimeApi
+API_Description="API used for Time requests"
+Path_Part="time"
