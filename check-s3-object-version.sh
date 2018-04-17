@@ -41,7 +41,7 @@ Version_id=$(aws s3api get-object --bucket aadhri-test-buck --key $Lambda_zip ou
 if [ $? != 0 ]; then
 	   echo "Version does not exist"
 else
-	   sed -i -e 's/obj-version-id/'"$Version_id"'/' data.yaml  
+	   sed -i -e 's/Obj-version-id/'"$Version_id"'/' data.yaml  
 fi
 
 #Pointing prod alias with the current version of lambda function. This step is necessary to keep the production always points to the current version of lambda during the update stack process. 
