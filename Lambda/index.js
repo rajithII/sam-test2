@@ -4,6 +4,6 @@ exports.GreetingLambda = (event, context, callback) => {
 	    currentTime.setTimezone("America/Los_Angeles");
 	    callback(null, {
 		            statusCode: '200',
-		            body: 'The Time In Canada is: ' + currentTime.toString(),
+		            body: 'The Time In Newyork is: ' + currentTime.toString(),
 		        });
 };
