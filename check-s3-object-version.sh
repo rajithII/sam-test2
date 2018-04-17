@@ -13,6 +13,7 @@ sudo apt-get install -y nodejs
 #Exporting file contains lambda variables which are used in the cloudformation template
 source lambda-variables.txt
 source api-variables.txt
+sed -i -e 's/FunctionName/'"$Function_name"'/g' Lambda/index.js
 
 #Packaging the zip file and upload it to s3
 mkdir -p lambdatest

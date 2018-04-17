@@ -1,5 +1,5 @@
 var time = require('time');
-exports.GreetingLambda = (event, context, callback) => {
+exports.FunctionName = (event, context, callback) => {
 	    var currentTime = new time.Date(); 
 	    currentTime.setTimezone("America/Los_Angeles");
 	    callback(null, {
