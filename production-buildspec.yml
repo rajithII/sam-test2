@@ -2,6 +2,7 @@ version: 0.2
 phases:
   build:
     commands:
+      - sudo apt-get update -y
       - chmod 755 productionbuild.sh
       - ./productionbuild.sh 
 
