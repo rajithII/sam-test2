@@ -3,7 +3,7 @@
 #Aauthor         :rajith.v@iinerds.com
 #Date            :12-04-2018
 #Version         :0.1    
-#Usage		       :This script will create a lambda version and update the prod alias with that version
+#Usage           :This script will create a lambda version and update the prod alias with that version
 #=====================================================================================================
 sudo apt-get update -y
 
