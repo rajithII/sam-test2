@@ -1,6 +1,6 @@
 #This file contains all the lambda variables
 #============================================
-Function_name=TimeFUnction
+Function_name=NewTimeFunction
 Function_description="A Timefunction lambda"
 Runtime_env=nodejs4.3
 S3_bucket_name=aadhri-test-buck
