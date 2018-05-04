@@ -1,1 +1,1 @@
-# Lambdafunction name should match in both pipeline depolyment and stack deployment
+# Lambda Function name should match in both pipeline depolyment and stack deployment
