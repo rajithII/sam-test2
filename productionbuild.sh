@@ -9,7 +9,7 @@ sudo apt-get update -y
 
 #Export variables from the file
 source lambda-variables.txt
-stackname=$Function_nameDeploymentStack
+stackname=/$Function_nameDeploymentStack
 
 #Publishing Lambda version
 aws lambda publish-version --function-name $Function_name > lambda-version.txt
