@@ -9,6 +9,7 @@ sudo apt-get update -y
 
 #Export variables from the file
 source lambda-variables.txt
+stackname=$Function_nameDeploymentStack
 
 #Publishing Lambda version
 aws lambda publish-version --function-name $Function_name > lambda-version.txt
@@ -18,6 +19,10 @@ New_version=$(cat lambda-version.txt | grep "Version" | awk '{ print $2 }' | tr 
 
 #Updating prod alias with the new version
 aws lambda update-alias --function-name $Function_name --name PROD --function-version $New_version
+
+#To enable termination protection
+aws cloudformation update-termination-protection --stack-name $stackname --enable-termination-protection
+
 
 
 
