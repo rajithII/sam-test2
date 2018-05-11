@@ -4,4 +4,3 @@ Function_name=TimeFunction
 Function_description="A Timefunction lambda"
 Runtime_env=nodejs4.3
 S3_bucket_name=aadhri-test-buck
-Lambda_zip=test3.zip
