@@ -20,8 +20,8 @@ mkdir -p lambdatest
 mv -f Lambda/* lambdatest/
 cd lambdatest
 npm install
-zip -r ${Function_name}.zip *
-aws s3 cp ${Function_name}.zip s3://$S3_bucket_name/
+zip -r $Lambda_zip *
+aws s3 cp $Lambda_zip s3://$S3_bucket_name/
 cd ..
 Current_lambda_version="\$LATEST"
 
